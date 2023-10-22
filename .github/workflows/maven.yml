@@ -79,7 +79,7 @@ jobs:
   build:
     #Depends on sonar's job
     needs: sonar
-    name: Build
+    name: Build and push to docker
     #Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
     steps:
