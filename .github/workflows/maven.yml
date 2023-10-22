@@ -118,6 +118,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build docker image
-        run: docker build -t wsoto23/feback -f devops/Dockerfile.
+        run: docker build -t wsoto23/feback -f devops/Dockerfile .
       - name: Publish image to docker hub
         run: docker push wsoto23/feback:latest
