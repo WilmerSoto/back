@@ -9,9 +9,7 @@ import java.util.Optional;
 
 public interface DriverRepository extends JpaRepository<Driver, Integer> {
 
-    @Query("SELECT d FROM Driver d WHERE UPPER(d.document) = UPPER(:document)" +
-            " AND UPPER(d.documentType) = UPPER(:documentType)")
-    Optional<Driver> findByDocumentAndDocumentType(@Param("document") String name,
-                                                   @Param("documentType") String documentType);
+    @Query("SELECT d FROM Driver d WHERE UPPER(d.cedula) = UPPER(:cedula)")
+    Optional<Driver> findByDocumentAndDocumentType(@Param("cedula") String name);
 
 }

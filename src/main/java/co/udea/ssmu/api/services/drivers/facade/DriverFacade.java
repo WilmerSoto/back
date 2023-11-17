@@ -50,14 +50,9 @@ public class DriverFacade {
         driverService.delete(id);
     }
 
-    public DriverDTO saveDriverAndVehicle(DriverDTO driverNew) {
-        VehicleDTO vehicleDTO = driverNew.getVehicle();
+    public DriverDTO saveDriver(DriverDTO driverNew) {
         // Para utilizar los 2 servicios, pero si se deja en el objeto driver y se guarda se guardan los 2 objetos
-        driverNew.setVehicle(null);
-        DriverDTO driver = driverMapper.toDto(driverService.save(driverMapper.toEntity(driverNew)));
-        vehicleDTO.setDriverCode(driver.getId());
-        vehicleService.save(vehicleMapper.toEntity(vehicleDTO));
-        return driver;
+        return driverMapper.toDto(driverService.save(driverMapper.toEntity(driverNew)));
     }
 
 }

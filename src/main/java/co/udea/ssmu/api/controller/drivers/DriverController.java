@@ -59,7 +59,8 @@ public class DriverController {
                     @Content(schema = @Schema(implementation = List.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
             }, description = "Los conductores fueron consultados exitosamente"),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
-            @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
+            @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta"),
+            @ApiResponse(responseCode = "404", description = "No se encuentra el recurso") })
     public ResponseEntity<StandardResponse<List<DriverDTO>>> findAll() {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
                 messages.get("driver.get.all.successful"),
@@ -131,7 +132,7 @@ public class DriverController {
     public ResponseEntity<StandardResponse<DriverDTO>> saveDriverAndVehicle(@Valid @RequestBody DriverDTO driver) {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
                 messages.get("driver.save.driver.and.vehicle.successful"),
-                driverFacade.saveDriverAndVehicle(driver)));
+                driverFacade.saveDriver(driver)));
     }
 
 }

@@ -25,9 +25,9 @@ public class DriverService {
     }
 
     public Driver save(Driver driver) {
-        Optional<Driver> driverOptional = driverRepository.findByDocumentAndDocumentType(driver.getDocument(), driver.getDocumentType());
+        Optional<Driver> driverOptional = driverRepository.findByDocumentAndDocumentType(driver.getCedula());
         if (driverOptional.isPresent()) {
-            throw new BusinessException(String.format(messages.get("driver.save.duplicate.document"), driver.getDocumentType(), driver.getDocument()));
+            throw new BusinessException(String.format(messages.get("driver.save.duplicate.document"), driver.getCedula()));
         }
         return driverRepository.save(driver);
     }
@@ -41,7 +41,7 @@ public class DriverService {
     }
 
     public Driver update(Driver driver) {
-        Optional<Driver> driverOptional = driverRepository.findById(driver.getId());
+        Optional<Driver> driverOptional = driverRepository.findById(driver.getIdConductor());
         if (driverOptional.isEmpty()) {
             throw new BusinessException(String.format(messages.get("driver.update.does.not.exist")));
         }
