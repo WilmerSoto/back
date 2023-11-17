@@ -67,6 +67,21 @@ public class DriverController {
                 driverFacade.findByAll()));
     }
 
+    @GetMapping("/get/{cedula}")
+    @Operation(summary = "Permite consultar un conductor especifico por cedula")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "El conductor fue eliminada exitosamente"),
+            @ApiResponse(responseCode = "400", description = "La petición es inválida"),
+            @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
+    public ResponseEntity<StandardResponse<DriverDTO>> findByCedula(@PathVariable String cedula) {
+        try {
+            return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, messages.get("driver.find.cedula.successful"),
+                    driverFacade.findByCedula(cedula)));
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(messages.get("driver.find.cedula.error"));
+        }
+    }
+
     @GetMapping("/get-all/filter")
     @Operation(summary = "Consultar los conductores paginado")
     @ApiResponses(value = {

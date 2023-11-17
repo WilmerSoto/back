@@ -1,5 +1,6 @@
 package co.udea.ssmu.api.services.drivers.service;
 
+import co.udea.ssmu.api.model.jpa.dto.drivers.DriverDTO;
 import co.udea.ssmu.api.utils.common.Messages;
 import co.udea.ssmu.api.utils.exception.BusinessException;
 import co.udea.ssmu.api.model.jpa.model.drivers.Driver;
@@ -25,8 +26,8 @@ public class DriverService {
     }
 
     public Driver save(Driver driver) {
-        Optional<Driver> driverOptional = driverRepository.findByDocumentAndDocumentType(driver.getCedula());
-        if (driverOptional.isPresent()) {
+        Driver driverOptional = driverRepository.findByCedula(driver.getCedula());
+        if (driverOptional == null) {
             throw new BusinessException(String.format(messages.get("driver.save.duplicate.document"), driver.getCedula()));
         }
         return driverRepository.save(driver);
@@ -34,6 +35,14 @@ public class DriverService {
 
     public List<Driver> findByAll() {
         return driverRepository.findAll();
+    }
+
+    public Driver findByCedula(String cedula){
+        Driver driverCedula = driverRepository.findByCedula(cedula);
+        if (driverCedula == null) {
+            throw new BusinessException(String.format(messages.get("driver.find.cedula.error")));
+        }
+        return driverCedula;
     }
 
     public Page<Driver> getWithPage(Pageable pageable) {
