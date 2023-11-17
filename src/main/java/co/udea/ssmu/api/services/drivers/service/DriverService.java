@@ -57,9 +57,11 @@ public class DriverService {
         return driverRepository.save(driver);
     }
 
-    public void delete(Integer id) {
-        driverRepository.findById(id).orElseThrow(() ->
-                new BusinessException(String.format(messages.get("driver.delete.find.error"), id)));
-        this.driverRepository.deleteById(id);
+    public void delete(String cedula) {
+        Driver driverCedula = driverRepository.findByCedula(cedula);
+        if (driverCedula == null) {
+            throw new BusinessException(String.format(messages.get("driver.find.cedula.error")));
+        }
+        driverRepository.deleteByCedula(cedula);
     }
 }

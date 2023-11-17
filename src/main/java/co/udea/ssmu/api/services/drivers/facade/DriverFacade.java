@@ -51,8 +51,8 @@ public class DriverFacade {
         return driverMapper.toDto(driverService.save(driverMapper.toEntity(Driver)));
     }
 
-    public void delete(Integer id) {
-        driverService.delete(id);
+    public void delete(String cedula) {
+        driverService.delete(cedula);
     }
 
     public DriverDTO saveDriver(DriverDTO driverNew) {

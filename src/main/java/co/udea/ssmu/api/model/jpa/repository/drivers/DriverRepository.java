@@ -13,4 +13,5 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
 //    @Query("SELECT d FROM Driver d WHERE UPPER(d.cedula) = UPPER(:cedula)")
 //    Optional<Driver> findByCedula(@Param("cedula") String name);
     Driver findByCedula(String cedula);
+    void deleteByCedula(String cedula);
 }

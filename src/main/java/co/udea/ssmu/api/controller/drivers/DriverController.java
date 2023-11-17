@@ -121,33 +121,33 @@ public class DriverController {
                 driverFacade.update(driver)));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{cedula}")
     @Operation(summary = "Permite eliminar un conductor")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "El conductor fue eliminada exitosamente"),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
-    public ResponseEntity<StandardResponse<Void>> delete(@PathVariable Integer id) {
+    public ResponseEntity<StandardResponse<Void>> delete(@PathVariable String cedula) {
         try {
-            driverFacade.delete(id);
+            driverFacade.delete(cedula);
             return ResponseEntity.ok(new StandardResponse<>(messages.get("driver.delete.successful"), StandardResponse.StatusStandardResponse.OK));
         } catch (DataIntegrityViolationException e) {
             throw new DataBaseException(messages.get("driver.delete.error"));
         }
     }
 
-    @PostMapping("/save-driver-and-vehicle")
-    @Operation(summary = "Permite guardar un conductor y su vehículo")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", content = {
-                    @Content(schema = @Schema(implementation = DriverDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
-            }, description = "El conductor y el vehículo fueron guardados exitosamente"),
-            @ApiResponse(responseCode = "400", description = "La petición es inválida"),
-            @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
-    public ResponseEntity<StandardResponse<DriverDTO>> saveDriverAndVehicle(@Valid @RequestBody DriverDTO driver) {
-        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
-                messages.get("driver.save.driver.and.vehicle.successful"),
-                driverFacade.saveDriver(driver)));
-    }
+//    @PostMapping("/save-driver-and-vehicle")
+//    @Operation(summary = "Permite guardar un conductor y su vehículo")
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "200", content = {
+//                    @Content(schema = @Schema(implementation = DriverDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
+//            }, description = "El conductor y el vehículo fueron guardados exitosamente"),
+//            @ApiResponse(responseCode = "400", description = "La petición es inválida"),
+//            @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
+//    public ResponseEntity<StandardResponse<DriverDTO>> saveDriverAndVehicle(@Valid @RequestBody DriverDTO driver) {
+//        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
+//                messages.get("driver.save.driver.and.vehicle.successful"),
+//                driverFacade.saveDriver(driver)));
+//    }
 
 }
