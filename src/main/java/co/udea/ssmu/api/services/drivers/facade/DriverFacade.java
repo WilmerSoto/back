@@ -1,9 +1,9 @@
 package co.udea.ssmu.api.services.drivers.facade;
 
 import co.udea.ssmu.api.model.jpa.dto.drivers.DriverDTO;
-import co.udea.ssmu.api.model.jpa.dto.vehicles.VehicleDTO;
 import co.udea.ssmu.api.model.jpa.mapper.drivers.DriverMapper;
 import co.udea.ssmu.api.model.jpa.mapper.vehicles.VehicleMapper;
+import co.udea.ssmu.api.model.jpa.model.drivers.Driver;
 import co.udea.ssmu.api.services.drivers.service.DriverService;
 import co.udea.ssmu.api.services.vehicles.service.VehicleService;
 import org.springframework.data.domain.Page;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -38,26 +39,25 @@ public class DriverFacade {
         return driverMapper.toDto(driverService.findByAll());
     }
 
+    public DriverDTO findByCedula(String cedula){
+        return driverMapper.toDto(driverService.findByCedula(cedula));
+    }
+
     public Page<DriverDTO> getWithPage(Pageable pageable) {
         return driverService.getWithPage(pageable).map(driverMapper::toDto);
     }
 
     public DriverDTO update(DriverDTO Driver) {
-        return driverMapper.toDto(driverService.save(driverMapper.toEntity(Driver)));
+        return driverMapper.toDto(driverService.update(driverMapper.toEntity(Driver)));
     }
 
-    public void delete(Integer id) {
-        driverService.delete(id);
+    public void delete(String cedula) {
+        driverService.delete(cedula);
     }
 
-    public DriverDTO saveDriverAndVehicle(DriverDTO driverNew) {
-        VehicleDTO vehicleDTO = driverNew.getVehicle();
+    public DriverDTO saveDriver(DriverDTO driverNew) {
         // Para utilizar los 2 servicios, pero si se deja en el objeto driver y se guarda se guardan los 2 objetos
-        driverNew.setVehicle(null);
-        DriverDTO driver = driverMapper.toDto(driverService.save(driverMapper.toEntity(driverNew)));
-        vehicleDTO.setDriverCode(driver.getId());
-        vehicleService.save(vehicleMapper.toEntity(vehicleDTO));
-        return driver;
+        return driverMapper.toDto(driverService.save(driverMapper.toEntity(driverNew)));
     }
 
 }

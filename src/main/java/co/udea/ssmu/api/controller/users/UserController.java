@@ -1,10 +1,11 @@
-package co.udea.ssmu.api.controller.drivers;
+package co.udea.ssmu.api.controller.users;
 
+import co.udea.ssmu.api.model.jpa.dto.drivers.DriverDTO;
+import co.udea.ssmu.api.model.jpa.dto.users.UserDTO;
+import co.udea.ssmu.api.services.users.facade.UserFacade;
 import co.udea.ssmu.api.utils.common.Messages;
 import co.udea.ssmu.api.utils.common.StandardResponse;
-import co.udea.ssmu.api.model.jpa.dto.drivers.DriverDTO;
 import co.udea.ssmu.api.utils.exception.DataBaseException;
-import co.udea.ssmu.api.services.drivers.facade.DriverFacade;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -25,72 +26,72 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@Tag(name = "Drivers", description = "Gestión de conductores")
+@Tag(name = "Users", description = "Gestión de usuarios")
 @RestController
-@RequestMapping("/api/drivers")
-public class DriverController {
+@RequestMapping("/api/users")
+public class UserController {
 
-    private final DriverFacade driverFacade;
+    private final UserFacade userFacade;
     private final Messages messages;
 
-    public DriverController(DriverFacade driverFacade, Messages messages) {
-        this.driverFacade = driverFacade;
+    public UserController(UserFacade userFacade, Messages messages) {
+        this.userFacade = userFacade;
         this.messages = messages;
     }
 
     @PostMapping("/save")
-    @Operation(summary = "Permite guardar un conductor")
+    @Operation(summary = "Permite guardar un usuario")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
-                    @Content(schema = @Schema(implementation = DriverDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
-            }, description = "El conductor fue guardado exitosamente"),
+                    @Content(schema = @Schema(implementation = UserDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
+            }, description = "El usuario fue guardado exitosamente"),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
-    public ResponseEntity<StandardResponse<DriverDTO>> save(@Valid @RequestBody DriverDTO driver) {
+    public ResponseEntity<StandardResponse<UserDTO>> save(@Valid @RequestBody UserDTO user) {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
-                messages.get("driver.save.successful"),
-                driverFacade.save(driver)));
+                messages.get("user.save.successful"),
+                userFacade.save(user)));
     }
 
     @GetMapping("/get-all")
-    @Operation(summary = "Permite consultar todos los conductores")
+    @Operation(summary = "Permite consultar todos los usuarios")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
                     @Content(schema = @Schema(implementation = List.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
-            }, description = "Los conductores fueron consultados exitosamente"),
+            }, description = "Los usuarios fueron consultados exitosamente"),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta"),
             @ApiResponse(responseCode = "404", description = "No se encuentra el recurso") })
-    public ResponseEntity<StandardResponse<List<DriverDTO>>> findAll() {
+    public ResponseEntity<StandardResponse<List<UserDTO>>> findAll() {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
-                messages.get("driver.get.all.successful"),
-                driverFacade.findByAll()));
+                messages.get("user.get.all.successful"),
+                userFacade.findByAll()));
     }
 
     @GetMapping("/get/{cedula}")
-    @Operation(summary = "Permite consultar un conductor especifico por cedula")
+    @Operation(summary = "Permite consultar un usuario especifico por cedula")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "El conductor fue eliminada exitosamente"),
+            @ApiResponse(responseCode = "200", description = "El usuario fue eliminada exitosamente"),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
-    public ResponseEntity<StandardResponse<DriverDTO>> findByCedula(@PathVariable String cedula) {
+    public ResponseEntity<StandardResponse<UserDTO>> findByCedula(@PathVariable String cedula) {
         try {
-            return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, messages.get("driver.find.cedula.successful"),
-                    driverFacade.findByCedula(cedula)));
+            return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK, messages.get("user.find.nrodoc.successful"),
+                    userFacade.findByCedula(cedula)));
         } catch (DataIntegrityViolationException e) {
-            throw new DataBaseException(messages.get("driver.find.cedula.error"));
+            throw new DataBaseException(messages.get("user.find.nrodoc.error"));
         }
     }
 
     @GetMapping("/get-all/filter")
-    @Operation(summary = "Consultar los conductores paginado")
+    @Operation(summary = "Consultar los usuarios paginado")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Los conductores fueron consultados exitosamente",
+            @ApiResponse(responseCode = "200", description = "Los usuarios fueron consultados exitosamente",
                     content = @Content(array = @ArraySchema(schema = @Schema(implementation = Page.class)))),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")
     })
-    public ResponseEntity<StandardResponse<Page<DriverDTO>>> getWithPage(
+    public ResponseEntity<StandardResponse<Page<UserDTO>>> getWithPage(
             @Parameter(description = "Página para la cual se desean recibir los resultados (0..N)")
             @RequestParam(defaultValue = "0") Integer page,
             @Parameter(description = "Número de registros por página.")
@@ -103,51 +104,37 @@ public class DriverController {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.asc(sort.split(",")[0])));
 
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
-                messages.get("driver.get.all.filter.successful"),
-                driverFacade.getWithPage(pageable)));
+                messages.get("user.get.all.filter.successful"),
+                userFacade.getWithPage(pageable)));
     }
 
     @PutMapping("/update")
-    @Operation(summary = "Permite actualizar un conductor")
+    @Operation(summary = "Permite actualizar un usuario")
     @ApiResponses({
             @ApiResponse(responseCode = "200", content = {
-                    @Content(schema = @Schema(implementation = DriverDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
-            }, description = "El país fue habilitado exitosamente"),
+                    @Content(schema = @Schema(implementation = UserDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
+            }, description = "El usuario se acuatlizo exitosamente"),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
-    public ResponseEntity<StandardResponse<DriverDTO>> update(@Valid @RequestBody DriverDTO driver) {
+    public ResponseEntity<StandardResponse<UserDTO>> update(@Valid @RequestBody UserDTO user) {
         return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
-                messages.get("driver.update.successful"),
-                driverFacade.update(driver)));
+                messages.get("user.update.successful"),
+                userFacade.update(user)));
     }
 
     @DeleteMapping("/delete/{cedula}")
-    @Operation(summary = "Permite eliminar un conductor")
+    @Operation(summary = "Permite eliminar un usuario por cedula")
     @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "El conductor fue eliminada exitosamente"),
+            @ApiResponse(responseCode = "200", description = "El usuario fue eliminada exitosamente"),
             @ApiResponse(responseCode = "400", description = "La petición es inválida"),
             @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
     public ResponseEntity<StandardResponse<Void>> delete(@PathVariable String cedula) {
         try {
-            driverFacade.delete(cedula);
-            return ResponseEntity.ok(new StandardResponse<>(messages.get("driver.delete.successful"), StandardResponse.StatusStandardResponse.OK));
+            userFacade.delete(cedula);
+            return ResponseEntity.ok(new StandardResponse<>(messages.get("user.delete.successful"), StandardResponse.StatusStandardResponse.OK));
         } catch (DataIntegrityViolationException e) {
-            throw new DataBaseException(messages.get("driver.delete.error"));
+            throw new DataBaseException(messages.get("user.delete.error"));
         }
     }
-
-//    @PostMapping("/save-driver-and-vehicle")
-//    @Operation(summary = "Permite guardar un conductor y su vehículo")
-//    @ApiResponses({
-//            @ApiResponse(responseCode = "200", content = {
-//                    @Content(schema = @Schema(implementation = DriverDTO.class), mediaType = MediaType.APPLICATION_JSON_VALUE)
-//            }, description = "El conductor y el vehículo fueron guardados exitosamente"),
-//            @ApiResponse(responseCode = "400", description = "La petición es inválida"),
-//            @ApiResponse(responseCode = "500", description = "Error interno al procesar la respuesta")})
-//    public ResponseEntity<StandardResponse<DriverDTO>> saveDriverAndVehicle(@Valid @RequestBody DriverDTO driver) {
-//        return ResponseEntity.ok(new StandardResponse<>(StandardResponse.StatusStandardResponse.OK,
-//                messages.get("driver.save.driver.and.vehicle.successful"),
-//                driverFacade.saveDriver(driver)));
-//    }
 
 }
