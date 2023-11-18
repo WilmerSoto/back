@@ -27,7 +27,7 @@ public class DriverService {
 
     public Driver save(Driver driver) {
         Driver driverOptional = driverRepository.findByCedula(driver.getCedula());
-        if (driverOptional == null) {
+        if (driverOptional != null) {
             throw new BusinessException(String.format(messages.get("driver.save.duplicate.document"), driver.getCedula()));
         }
         return driverRepository.save(driver);

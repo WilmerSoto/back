@@ -1,69 +1,36 @@
-package co.udea.ssmu.api.model.jpa.model.users;
+package co.udea.ssmu.api.model.jpa.dto.users;
 
+import co.udea.ssmu.api.model.jpa.dto.groups.GroupDTO;
+import co.udea.ssmu.api.model.jpa.dto.userTypes.UserTypeDTO;
 import co.udea.ssmu.api.model.jpa.model.groups.Group;
 import co.udea.ssmu.api.model.jpa.model.userTypes.UserType;
-import jakarta.persistence.*;
-import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
+public class UserDTO {
     private Integer idUsuario;
-
-    @Column(name = "nombre", length = 50)
-    @NotNull
     private String nombre;
-
-    @Column(name = "apellido", length = 50)
-    @NotNull
     private String apellido;
-
-    @Column(name = "celular", length = 50)
-    @NotNull
     private String celular;
-
-    @Column(name = "email", unique = true, length = 50)
-    @NotNull
     private String email;
-
-    @Column(name = "password", length = 256)
-    @NotNull
     private String password;
-
-    @Column(name = "nro_documento", unique = true, length = 10)
-    @NotNull
     private String nroDocumento;
-
-    @Column(name = "rol", columnDefinition = "varchar(10) DEFAULT 'USUARIO'")
     private String rol;
-
-    @Column(name = "nro_servicios", columnDefinition = "varchar(10) DEFAULT '0'")
     private String nroServicios;
+    private GroupDTO grupo;
+    private UserTypeDTO tipoUsuario;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_grupo", referencedColumnName = "id_grupo")
-    private Group grupo;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_id_tipo_usuario", referencedColumnName = "id_tipo_usuario")
-    private UserType tipoUsuario;
-
-    public Group getGrupo() {
+    public GroupDTO getGrupo() {
         return grupo;
     }
 
-    public void setGrupo(Group grupo) {
+    public void setGrupo(GroupDTO grupo) {
         this.grupo = grupo;
     }
 
-    public UserType getTipoUsuario() {
+    public UserTypeDTO getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(UserType tipoUsuario) {
+    public void setTipoUsuario(UserTypeDTO tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
 
