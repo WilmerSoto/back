@@ -13,6 +13,7 @@ public class TaxiController {
 
     private final SimpMessagingTemplate template;
 
+
     public TaxiController(SimpMessagingTemplate template){
         this.template = template;
     }

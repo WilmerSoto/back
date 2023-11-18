@@ -16,7 +16,7 @@ import java.util.List;
 public class CommandLineInit implements CommandLineRunner {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String url = "http://localhost:8080/taxiapp/send-coordenada";
+    private final String url = "http://localhost:8080/ssmu-api/taxiapp/send-coordenada";
 
     @Override
     public void run(String... args) throws Exception{
