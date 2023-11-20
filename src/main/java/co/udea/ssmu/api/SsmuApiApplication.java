@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         "co.udea.ssmu.api.model",
         "co.udea.ssmu.api.services",
         "co.udea.ssmu.api.utils",
+        "co.udea.ssmu.api.Component",
+        "co.udea.ssmu.api.config"
 })
 
 public class SsmuApiApplication extends SpringBootServletInitializer {
