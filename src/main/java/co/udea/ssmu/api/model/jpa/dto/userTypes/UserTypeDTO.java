@@ -1,7 +1,5 @@
 package co.udea.ssmu.api.model.jpa.dto.userTypes;
 
-import jakarta.persistence.Column;
-
 public class UserTypeDTO {
     private Integer idTipoUsuario;
     private String nombre;

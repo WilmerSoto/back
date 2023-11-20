@@ -1,9 +1,5 @@
 package co.udea.ssmu.api.model.jpa.dto.drivers;
 
-import co.udea.ssmu.api.model.jpa.dto.vehicles.VehicleDTO;
-import co.udea.ssmu.api.utils.common.StateDriverEnum;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class DriverDTO {

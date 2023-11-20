@@ -1,7 +1,5 @@
 package co.udea.ssmu.api.model.jpa.dto.groups;
 
-import jakarta.persistence.Column;
-
 public class GroupDTO {
     private Integer idGrupo;
     private Integer idUsuarioDueno;

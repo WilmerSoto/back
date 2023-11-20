@@ -2,8 +2,6 @@ package co.udea.ssmu.api.model.jpa.dto.users;
 
 import co.udea.ssmu.api.model.jpa.dto.groups.GroupDTO;
 import co.udea.ssmu.api.model.jpa.dto.userTypes.UserTypeDTO;
-import co.udea.ssmu.api.model.jpa.model.groups.Group;
-import co.udea.ssmu.api.model.jpa.model.userTypes.UserType;
 
 public class UserDTO {
     private Integer idUsuario;

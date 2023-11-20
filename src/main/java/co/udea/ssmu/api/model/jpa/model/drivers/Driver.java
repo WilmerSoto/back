@@ -1,11 +1,7 @@
 package co.udea.ssmu.api.model.jpa.model.drivers;
-
-import co.udea.ssmu.api.model.jpa.model.vehicles.Vehicle;
-import co.udea.ssmu.api.utils.common.StateDriverEnum;
 import jakarta.persistence.*;
 
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity

@@ -1,6 +1,5 @@
 package co.udea.ssmu.api.controller.users;
 
-import co.udea.ssmu.api.model.jpa.dto.drivers.DriverDTO;
 import co.udea.ssmu.api.model.jpa.dto.users.UserDTO;
 import co.udea.ssmu.api.services.users.facade.UserFacade;
 import co.udea.ssmu.api.utils.common.Messages;

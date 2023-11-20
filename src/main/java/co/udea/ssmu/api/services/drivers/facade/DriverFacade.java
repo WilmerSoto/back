@@ -2,17 +2,14 @@ package co.udea.ssmu.api.services.drivers.facade;
 
 import co.udea.ssmu.api.model.jpa.dto.drivers.DriverDTO;
 import co.udea.ssmu.api.model.jpa.mapper.drivers.DriverMapper;
-import co.udea.ssmu.api.model.jpa.mapper.vehicles.VehicleMapper;
-import co.udea.ssmu.api.model.jpa.model.drivers.Driver;
+
 import co.udea.ssmu.api.services.drivers.service.DriverService;
-import co.udea.ssmu.api.services.vehicles.service.VehicleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,15 +17,10 @@ public class DriverFacade {
 
     private final DriverService driverService;
     private final DriverMapper driverMapper;
-    private final VehicleService vehicleService;
-    private final VehicleMapper vehicleMapper;
 
-    public DriverFacade(DriverService driverService, DriverMapper driverMapper,
-                        VehicleService vehicleService, VehicleMapper vehicleMapper) {
+    public DriverFacade(DriverService driverService, DriverMapper driverMapper) {
         this.driverService = driverService;
         this.driverMapper = driverMapper;
-        this.vehicleService = vehicleService;
-        this.vehicleMapper = vehicleMapper;
     }
 
     public DriverDTO save(DriverDTO Driver) {

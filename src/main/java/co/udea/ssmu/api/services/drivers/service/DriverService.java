@@ -1,6 +1,5 @@
 package co.udea.ssmu.api.services.drivers.service;
 
-import co.udea.ssmu.api.model.jpa.dto.drivers.DriverDTO;
 import co.udea.ssmu.api.utils.common.Messages;
 import co.udea.ssmu.api.utils.exception.BusinessException;
 import co.udea.ssmu.api.model.jpa.model.drivers.Driver;
