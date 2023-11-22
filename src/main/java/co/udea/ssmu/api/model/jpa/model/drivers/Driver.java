@@ -1,7 +1,7 @@
 package co.udea.ssmu.api.model.jpa.model.drivers;
 import jakarta.persistence.*;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity

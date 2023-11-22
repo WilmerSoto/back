@@ -3,7 +3,7 @@ package co.udea.ssmu.api.model.jpa.model.users;
 import co.udea.ssmu.api.model.jpa.model.groups.Group;
 import co.udea.ssmu.api.model.jpa.model.userTypes.UserType;
 import jakarta.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")

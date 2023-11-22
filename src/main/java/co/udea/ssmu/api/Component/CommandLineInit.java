@@ -23,12 +23,18 @@ public class CommandLineInit implements CommandLineRunner {
         List<Coordenadas> coordenadas = new ArrayList<>();
         coordenadas.add(new Coordenadas(0,0));
         // coordenadas
-        coordenadas.add(new Coordenadas(6.231898953520999, -75.58338106147312));
-        coordenadas.add(new Coordenadas(6.231728406090786, -75.59093030796616));
-        coordenadas.add(new Coordenadas(6.237526987610479, -75.59144502931794));
-        coordenadas.add(new Coordenadas(6.245030939063767, -75.583724209041));
-        coordenadas.add(new Coordenadas(6.253216945263573, -75.58218004498559));
-        coordenadas.add(new Coordenadas(6.2561161250703545, -75.58063588093022));
+        coordenadas.add(new Coordenadas(6.270379436186207, -75.55614384473581));
+        coordenadas.add(new Coordenadas(6.2704114301386875, -75.55657299815167));
+        coordenadas.add(new Coordenadas(6.270563883844802, -75.55719550505819));
+        coordenadas.add(new Coordenadas(6.270590787435376, -75.55744811655649));
+        coordenadas.add(new Coordenadas(6.270931566129112, -75.55734887632501));
+        coordenadas.add(new Coordenadas(6.271137826809218, -75.5573127889681));
+        coordenadas.add(new Coordenadas(6.271559315771358, -75.55725865793276));
+        coordenadas.add(new Coordenadas(6.271640026384801, -75.55764659701943));
+        coordenadas.add(new Coordenadas(6.2717745440461385, -75.55829616944362));
+        coordenadas.add(new Coordenadas(6.271873190309043, -75.55867508669107));
+        coordenadas.add(new Coordenadas(6.271962868713667, -75.55941487750749));
+        coordenadas.add(new Coordenadas(6.271998740071199, -75.5597396637196));
 
         enviarCoordenadasPeriodicamente(coordenadas);
     }
@@ -37,7 +43,7 @@ public class CommandLineInit implements CommandLineRunner {
         for(Coordenadas coordenada : coordenadas){
             enviarCoordenada(coordenada);
             try{
-                Thread.sleep(3000);
+                Thread.sleep(2000);
             }catch(InterruptedException e){
                 Thread.currentThread().interrupt();
             }

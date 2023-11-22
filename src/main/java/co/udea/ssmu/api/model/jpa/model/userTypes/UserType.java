@@ -2,7 +2,7 @@ package co.udea.ssmu.api.model.jpa.model.userTypes;
 import co.udea.ssmu.api.model.jpa.model.users.User;
 import jakarta.persistence.*;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
